@@ -146,12 +146,12 @@
         <p class="last-updated"><strong>Last Updated:</strong> January 2026</p>
         
         <h2>Introduction</h2>
-        <p>VitalPath ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and protect your health data when you use our iOS application ("the App").</p>
+        <p>VitalPath ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we access, use, and protect your health data when you use our iOS application ("the App").</p>
         
-        <h2>Data Collection</h2>
+        <h2>Data Access and Storage</h2>
         
         <h3>Health Data from HealthKit</h3>
-        <p>VitalPath reads health data from Apple's HealthKit framework on your device. We collect the following types of health data:</p>
+        <p>VitalPath reads health data from Apple's HealthKit framework on your device (with your explicit permission). The app accesses the following types of health data:</p>
         
         <ul>
             <li><strong>Sleep Data</strong>: Sleep duration, sleep stages (REM, Deep, Light), sleep efficiency, and sleep fragmentation</li>
@@ -168,8 +168,12 @@
             <p><strong>Important</strong>: We only READ health data from HealthKit. We do not write or modify any health data in your Health app.</p>
         </div>
         
+        <div class="important">
+            <p><strong>Data Stays On Your Device</strong>: All raw health data accessed from HealthKit remains on your iPhone and is never transmitted off your device unless you explicitly choose to use a cloud-based AI provider (OpenRouter). By default, all processing happens entirely on your device.</p>
+        </div>
+        
         <h3>How We Use Your Health Data</h3>
-        <p>Your health data is used exclusively to:</p>
+        <p>Your health data is used exclusively on your device to:</p>
         <ol>
             <li>Generate personalized health insights and analysis</li>
             <li>Display trends and visualizations over time</li>
@@ -179,9 +183,10 @@
         
         <h3>Data Storage</h3>
         <ul>
-            <li><strong>On Your Device</strong>: All raw health data remains on your iPhone and is never transmitted off your device</li>
+            <li><strong>On Your Device</strong>: All raw health data remains on your iPhone and is never transmitted off your device (unless you explicitly opt-in to use OpenRouter)</li>
             <li><strong>Local Storage</strong>: Analysis results and trends are stored locally on your device using Core Data</li>
-            <li><strong>No Cloud Storage</strong>: We do not store your health data on any cloud servers or external databases</li>
+            <li><strong>No Cloud Storage</strong>: We do not store your health data on any cloud servers or external databases (except when you explicitly choose OpenRouter)</li>
+            <li><strong>No Data Collection</strong>: We do not "collect" data in the traditional sense—we only access data that already exists on your device, and it stays there</li>
         </ul>
         
         <h2>AI Processing</h2>
@@ -210,6 +215,7 @@
             <li><strong>What is Sent</strong>: 
                 <ul>
                     <li>Aggregated metrics (e.g., average sleep duration, average HRV)</li>
+                    <li>Your OpenRouter API key (required for API authentication - this is your own API key that you provide)</li>
                     <li>No raw time-series data</li>
                     <li>No personally identifiable information</li>
                     <li>No device identifiers</li>
@@ -219,28 +225,41 @@
                 <ul>
                     <li>Raw health data points</li>
                     <li>Individual readings or timestamps</li>
-                    <li>Personal information or account details</li>
-                    <li>Your API key (stored securely in iOS Keychain)</li>
+                    <li>Personal information or account details (name, email, address, etc.)</li>
+                    <li>Device identifiers or tracking information</li>
+                </ul>
+            </li>
+            <li><strong>API Key Security</strong>: 
+                <ul>
+                    <li>You provide your own OpenRouter API key (not one we generate)</li>
+                    <li>The API key is stored securely in iOS Keychain</li>
+                    <li>The API key is sent over HTTPS (encrypted in transit)</li>
+                    <li>The API key is only used for authenticating requests to OpenRouter's API</li>
+                    <li>You can revoke or change your API key at any time through OpenRouter</li>
                 </ul>
             </li>
             <li><strong>Third-Party Service</strong>: OpenRouter is a third-party service. Their privacy practices are governed by their own <a href="https://openrouter.ai/docs/privacy" target="_blank">privacy policy</a></li>
             <li><strong>User Consent</strong>: You must explicitly opt-in to use OpenRouter. The app will show a consent screen before using this provider</li>
-            <li><strong>API Key</strong>: You provide your own OpenRouter API key, which is stored securely in iOS Keychain</li>
         </ul>
         
         <div class="important">
             <p><strong>Important</strong>: When using OpenRouter, aggregated health metrics are sent over HTTPS to OpenRouter's servers for AI analysis. The analysis results are returned to your device and stored locally.</p>
         </div>
         
-        <h2>Data Sharing</h2>
-        <p>We do NOT:</p>
+        <h2>Data Transmission and Sharing</h2>
+        <p><strong>By Default: No Data Transmission</strong></p>
+        <p>By default, your health data never leaves your device. We do NOT:</p>
         <ul>
+            <li>Transmit your health data to any servers (unless you explicitly opt-in to OpenRouter)</li>
             <li>Sell your health data</li>
             <li>Share your health data with third parties (except OpenRouter when you explicitly choose that provider)</li>
             <li>Use your health data for advertising</li>
             <li>Track you across apps or websites</li>
             <li>Create advertising profiles based on your health data</li>
         </ul>
+        
+        <p><strong>When Using Cloud-Based AI (OpenRouter)</strong></p>
+        <p>Only if you explicitly choose to use OpenRouter as your AI provider, aggregated health metrics (not raw data) are sent to OpenRouter's servers for processing. This requires your explicit opt-in consent.</p>
         
         <h2>User Control</h2>
         <p>You have complete control over your data:</p>
@@ -265,13 +284,14 @@
         <p>We implement industry-standard security measures:</p>
         <ul>
             <li><strong>Keychain Storage</strong>: API keys are stored securely in iOS Keychain</li>
-            <li><strong>HTTPS Encryption</strong>: All network communications use HTTPS encryption</li>
-            <li><strong>No Data Collection</strong>: We do not collect analytics, crash reports, or usage statistics without your explicit consent</li>
-            <li><strong>Local Processing</strong>: By default, all AI processing happens on your device</li>
+            <li><strong>HTTPS Encryption</strong>: All network communications use HTTPS encryption (only when using OpenRouter)</li>
+            <li><strong>No Analytics Collection</strong>: We do not collect analytics, crash reports, or usage statistics without your explicit consent</li>
+            <li><strong>Local Processing</strong>: By default, all AI processing happens on your device—no data transmission</li>
+            <li><strong>On-Device Storage</strong>: All data remains on your device unless you explicitly opt-in to cloud processing</li>
         </ul>
         
         <h2>Children's Privacy</h2>
-        <p>VitalPath is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
+        <p>VitalPath is not intended for children under the age of 13. We do not knowingly access personal information from children under 13.</p>
         
         <h2>Third-Party Services</h2>
         
@@ -327,10 +347,12 @@
         <div class="summary">
             <h2>Summary</h2>
             <ul>
+                <li>We access health data from HealthKit on your device (with your permission)</li>
                 <li>Your raw health data never leaves your device (unless you explicitly choose OpenRouter)</li>
+                <li>By default, all processing happens entirely on your device—no data transmission</li>
                 <li>All analysis results are stored locally on your device</li>
                 <li>You control which health metrics the app can access</li>
-                <li>You choose which AI provider to use</li>
+                <li>You choose which AI provider to use (on-device by default)</li>
                 <li>We don't track you or sell your data</li>
                 <li>Complete transparency with Data Usage Inspector</li>
             </ul>
