@@ -151,7 +151,7 @@
         <h2>Data Access and Storage</h2>
         
         <h3>Health Data from HealthKit</h3>
-        <p>VitalPath reads health data from Apple's HealthKit framework on your device (with your explicit permission). The app accesses the following types of health data:</p>
+        <p>VitalPath reads health data from Apple's HealthKit framework on your device. The app accesses the following types of health data (with your explicit permission):</p>
         
         <ul>
             <li><strong>Sleep Data</strong>: Sleep duration, sleep stages (REM, Deep, Light), sleep efficiency, and sleep fragmentation</li>
@@ -162,6 +162,15 @@
             <li><strong>Vital Signs</strong>: Respiratory rate, blood oxygen saturation, body temperature, and VO₂ Max</li>
             <li><strong>Menstrual Cycle Data</strong>: Cycle tracking information (when applicable)</li>
             <li><strong>Dietary Data</strong>: Calorie intake</li>
+        </ul>
+        
+        <h3>Lab Results from Clinical Records</h3>
+        <p>If you choose to grant optional access, VitalPath can read lab results from HealthKit clinical records. Lab access is optional and the app works fully without it. Lab results are used only as background context to improve goal-aware analysis and are never displayed directly.</p>
+        <ul>
+            <li><strong>Optional Access</strong>: You can skip lab access during onboarding or enable it later in Settings</li>
+            <li><strong>Goal-Based Filtering</strong>: Only lab values relevant to your selected goals are used</li>
+            <li><strong>Local-Only</strong>: Lab results are stored locally on your device and never transmitted</li>
+            <li><strong>No UI Display</strong>: Lab values are not shown in the app UI</li>
         </ul>
         
         <div class="important">
@@ -215,7 +224,6 @@
             <li><strong>What is Sent</strong>: 
                 <ul>
                     <li>Aggregated metrics (e.g., average sleep duration, average HRV)</li>
-                    <li>Your OpenRouter API key (required for API authentication - this is your own API key that you provide)</li>
                     <li>No raw time-series data</li>
                     <li>No personally identifiable information</li>
                     <li>No device identifiers</li>
@@ -225,26 +233,52 @@
                 <ul>
                     <li>Raw health data points</li>
                     <li>Individual readings or timestamps</li>
-                    <li>Personal information or account details (name, email, address, etc.)</li>
-                    <li>Device identifiers or tracking information</li>
-                </ul>
-            </li>
-            <li><strong>API Key Security</strong>: 
-                <ul>
-                    <li>You provide your own OpenRouter API key (not one we generate)</li>
-                    <li>The API key is stored securely in iOS Keychain</li>
-                    <li>The API key is sent over HTTPS (encrypted in transit)</li>
-                    <li>The API key is only used for authenticating requests to OpenRouter's API</li>
-                    <li>You can revoke or change your API key at any time through OpenRouter</li>
+                    <li>Personal information or account details</li>
+                    <li>Your API key (stored securely in iOS Keychain)</li>
                 </ul>
             </li>
             <li><strong>Third-Party Service</strong>: OpenRouter is a third-party service. Their privacy practices are governed by their own <a href="https://openrouter.ai/docs/privacy" target="_blank">privacy policy</a></li>
             <li><strong>User Consent</strong>: You must explicitly opt-in to use OpenRouter. The app will show a consent screen before using this provider</li>
+            <li><strong>API Key</strong>: You provide your own OpenRouter API key, which is stored securely in iOS Keychain</li>
         </ul>
         
         <div class="important">
             <p><strong>Important</strong>: When using OpenRouter, aggregated health metrics are sent over HTTPS to OpenRouter's servers for AI analysis. The analysis results are returned to your device and stored locally.</p>
         </div>
+        
+        <h3>PII Sanitization (2026 Best Practice)</h3>
+        <p><strong>Important</strong>: VitalPath does NOT collect email addresses, phone numbers, names, addresses, or other personally identifiable information (PII).</p>
+        
+        <p>However, as a defensive safety measure, VitalPath implements PII sanitization on user-entered text (questions you type) and health context before sending any data to AI providers. This protects you in case you accidentally include personal information in your questions.</p>
+        
+        <p><strong>What is Sanitized (Defensive Measure):</strong></p>
+        <ul>
+            <li>Email addresses (if accidentally included in questions)</li>
+            <li>Phone numbers (if accidentally included in questions)</li>
+            <li>Names (if explicitly labeled in user text)</li>
+            <li>Street addresses (if accidentally included in questions)</li>
+            <li>Social Security Numbers (SSN patterns, if accidentally included)</li>
+            <li>Date of birth (when explicitly labeled - age in years/months is preserved for health analysis)</li>
+            <li>Device identifiers (when explicitly labeled - HealthKit UUIDs are preserved for data correlation)</li>
+        </ul>
+        
+        <p><strong>How It Works:</strong></p>
+        <ul>
+            <li>User questions you type are automatically sanitized before processing</li>
+            <li>Health context sent to AI providers is sanitized to remove any PII patterns</li>
+            <li>PII patterns are detected and removed or redacted</li>
+            <li>Health data itself (metrics, trends, baselines) is preserved for accurate analysis</li>
+        </ul>
+        
+        <p><strong>Why This Matters:</strong></p>
+        <ul>
+            <li>Prevents AI models from memorizing any personal information you might accidentally include</li>
+            <li>Ensures only health-relevant data is used for analysis</li>
+            <li>Provides an extra layer of privacy protection when using cloud-based AI providers</li>
+            <li>Follows 2026 best practices for health applications using AI</li>
+        </ul>
+        
+        <p><strong>Note</strong>: Age (in years/months) and biological sex are preserved as they are essential for personalized health recommendations. These are not considered PII in the health context as they cannot be used to identify individuals.</p>
         
         <h2>Data Transmission and Sharing</h2>
         <p><strong>By Default: No Data Transmission</strong></p>
